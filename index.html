@@ -1,0 +1,36 @@
+<script type="text/javascript" src="./node_modules/crypto-js/crypto-js.js"></script>
+<script type="text/javascript">
+
+	var passPhrase = "passPhrase";
+	var salt = "salt";
+	var plainText = "vasa";
+	var iv = "this is a key 11";
+
+    var key = CryptoJS.PBKDF2(
+       passPhrase, 
+       CryptoJS.enc.Hex.parse(salt),
+       { keySize: 4 , iterations: 8 });
+    	/*console.log(this.keySize);*/
+    var encrypted = CryptoJS.AES.encrypt(
+       plainText,
+       key,
+       { iv: CryptoJS.enc.Hex.parse(iv) });
+
+    var ciphertext = encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+
+    console.log("CIPHERTEXT: "+ ciphertext);
+
+    var cipherParams = CryptoJS.lib.CipherParams.create({
+     ciphertext: CryptoJS.enc.Base64.parse(ciphertext)
+   });
+   var decrypted = CryptoJS.AES.decrypt(
+       cipherParams,
+       key,
+       { iv: CryptoJS.enc.Hex.parse(iv) });
+
+   var plaintext = decrypted.toString(CryptoJS.enc.Utf8);
+
+   console.log("PLAINTEXT: "+ plaintext);
+</script> 
+
+

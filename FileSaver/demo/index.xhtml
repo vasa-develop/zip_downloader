@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US-x-Hixie">
+<head>
+    <meta charset="utf-8"/>
+    <title>FileSaver.js demo</title>
+    <script src="../../zipjs/dist/jszip.min.js"></script>
+
+    <script type="text/javascript">
+        function downloadZipFile(){ 
+        var zip = new JSZip();
+        zip.file("Hello.txt", "Hello World\n");
+        var img = zip.folder("images");
+        //img.file("background.jpeg", imgData, {base64: true});
+        //img.file("avengers.gif", imgData, {base64: true});
+        zip.generateAsync({type:"blob"})
+        .then(function(content) {
+            // see FileSaver.js
+            this.saveAs(content, "example.zip");
+        });
+        }
+    </script>
+</head>
+<body>
+    <button onclick="downloadZipFile()">SAVE</button>
+    <script async="" src="https://cdn.rawgit.com/eligrey/Blob.js/0cef2746414269b16834878a8abc52eb9d53e6bd/Blob.js"/>
+    
+    <script async="" src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"/>
+    <script async="" src="https://cdn.rawgit.com/eligrey/FileSaver.js/597b6cd0207ce408a6d34890b5b2826b13450714/demo/demo.js"/>
+</body>
+</html>

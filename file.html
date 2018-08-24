@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="./zipjs/dist/jszip.min.js"></script>
+	<script async="" src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"/>
+
+	<script type="text/javascript">
+
+		
+		var zip = new JSZip();
+		zip.file("Hello.txt", "Hello World\n");
+		var img = zip.folder("images");
+		//img.file("background.jpeg", imgData, {base64: true});
+		//img.file("avengers.gif", imgData, {base64: true});
+		zip.generateAsync({type:"blob"})
+		.then(function(content) {
+		    // see FileSaver.js
+		    FileSaver.saveAs(content, "example.zip");
+		});
+	
+	</script>
+</head>
+<body>
+	<button onclick="zipit()">zip</button>
+</body>
+</html>
+
+
+
